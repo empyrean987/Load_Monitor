@@ -23,7 +23,7 @@ start()
  else
         echo "$SERVICE is not running"
         echo "STARTING"
-        ~/Python/bin/$SERVICE > ~/Python/output/$SERVICE_$NOW.log 2>&1 &
+        ~/Load_Monitor/bin/$SERVICE > ~/Load_Monitor/output/$SERVICE_$NOW.log 2>&1 &
         sleep 5
         if [ "$(/bin/pidof -x $SERVICE)" ]
         then
