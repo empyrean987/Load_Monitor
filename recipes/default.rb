@@ -57,13 +57,16 @@ template '/etc/init.d/load' do
   group 'root'
   mode '0777'
 end
-template '/etc/init/Load_Monitor_service.conf' do
+template '/etc/init/load.conf' do
   source 'Load_Monitor_service.conf.erb'
   owner 'root'
   group 'root'
   mode '0777'
 end
-service "Load_Monitor_service" do
+execute 'load_rc_update' do
+  command 'update-rc.d load defaults 97 03'
+end
+service "load" do
   supports :status => true, :start => true, :stop => true
   start_command "/etc/init.d/load start"
   stop_command "/etc/init.d/load stop"
