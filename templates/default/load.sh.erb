@@ -1,0 +1,68 @@
+#!/bin/bash
+
+STATUS=''
+SERVICE='load_V1.py'
+NOW=$(date +"%m-%d-%Y_%H-%M-%S")
+echo $NOW
+
+status()
+{
+if [ "$(/bin/pidof -x $SERVICE)" ]
+then
+echo "$SERVICE is running"
+else
+ echo "$SERVICE is not running"
+fi
+}
+
+start()
+{
+ if [ "$(/bin/pidof -x $SERVICE)" ]
+ then
+        echo "$SERVICE is already running"
+ else
+        echo "$SERVICE is not running"
+        echo "STARTING"
+        ~/Python/bin/$SERVICE > ~/Python/output/$SERVICE_$NOW.log 2>&1 &
+        sleep 5
+        if [ "$(/bin/pidof -x $SERVICE)" ]
+        then
+         echo "$SERVICE is running"
+        else
+         echo "$SERVICE won't start"
+        fi
+ fi
+}
+
+stop()
+{
+ if [ "$(/bin/pidof -x $SERVICE)" ]
+ then
+        echo "STOPPING $SERVICE"
+        kill "$(/bin/pidof -x $SERVICE)"
+        if [ "$(/bin/pidof -x $SERVICE)" ]
+        then
+         echo "$SERVICE did not stop"
+        else
+         echo "$SERVICE stopped"
+        fi
+ else
+        echo "$SERVICE is already STOPPED"
+ fi
+}
+
+case "$1" in
+        start)
+                start
+                ;;
+        status)
+                status
+                ;;
+        stop)
+                stop
+                ;;
+        *)
+        echo $"Usage: $0 {start|status|stop}"
+        exit 1
+esac
+exit $?
