@@ -1,0 +1,7 @@
+name 'Load_Monitor'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures Load_Monitor'
+long_description 'Installs/Configures Load_Monitor'
+version '0.1.0'
