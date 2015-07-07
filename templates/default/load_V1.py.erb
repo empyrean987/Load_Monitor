@@ -1,0 +1,18 @@
+#!/usr/bin/python
+import os
+import socket
+load = os.getloadavg()
+output = os.uname()[1]+" LOAD1="+str(load[0])+" LOAD5="+str(load[1])+" LOAD15="+str(load[2])
+print output
+try:
+ s = socket.socket()
+ #host=socket.gethostname()
+ port=1988
+ s.bind(('0.0.0.0',port))
+ s.listen(10)
+ while True:
+  c,addr = s.accept()
+  c.send(output)
+  c.close()
+except Exception, e:
+ print "Failure "+str(e)
